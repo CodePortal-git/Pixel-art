@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Pixel Art Studio | CodePortal
+</title>
+
+<style>
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:tahoma;
+
+}
+
+body{
+
+background:
+linear-gradient(135deg,#0f172a,#1e3a8a);
+
+height:100vh;
+
+overflow:hidden;
+
+color:white;
+
+display:flex;
+
+}
+
+.sidebar{
+
+width:280px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+padding:20px;
+
+overflow:auto;
+
+}
+
+.sidebar h2{
+
+margin-bottom:15px;
+
+text-align:center;
+
+}
+
+.section{
+
+margin-bottom:20px;
+
+}
+
+button{
+
+width:100%;
+
+padding:12px;
+
+margin-top:8px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+background:#2563eb;
+
+color:white;
+
+font-size:15px;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:scale(1.03);
+
+}
+
+.codeportal{
+
+margin-top:20px;
+
+background:
+linear-gradient(135deg,#2563eb,#9333ea);
+
+font-weight:bold;
+
+box-shadow:
+0 0 20px rgba(37,99,235,.5);
+
+}
+
+
+.codeportal:hover{
+
+background:
+linear-gradient(135deg,#3b82f6,#c026d3);
+
+box-shadow:
+0 0 35px rgba(147,51,234,.8);
+
+transform:scale(1.05);
+
+}
+
+select{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:15px;
+
+margin-top:10px;
+
+}
+
+input[type=range]{
+
+width:100%;
+
+}
+
+.main{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.topbar{
+
+height:70px;
+
+background:rgba(255,255,255,.06);
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 20px;
+
+}
+
+.canvasContainer{
+
+flex:1;
+
+overflow:auto;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:30px;
+
+}
+
+#canvas{
+
+display:grid;
+
+background:white;
+
+box-shadow:0 0 35px rgba(0,0,0,.4);
+
+}
+
+.pixel{
+
+border:1px solid rgba(0,0,0,.05);
+
+background:white;
+
+}
+
+.palette{
+
+display:grid;
+
+grid-template-columns:repeat(5,1fr);
+
+gap:8px;
+
+margin-top:10px;
+
+}
+
+.color{
+
+height:38px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+border:2px solid transparent;
+
+}
+
+.color.active{
+
+border:3px solid white;
+
+}
+
+.info{
+
+padding:15px;
+
+background:rgba(255,255,255,.05);
+
+display:flex;
+
+justify-content:space-around;
+
+font-size:14px;
+
+}
+
+@media(max-width:850px){
+
+body{
+
+flex-direction:column;
+
+}
+
+.sidebar{
+
+width:100%;
+height:300px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>
+
+🎨 Pixel Art
+
+</h2>
+
+<div class="section">
+
+<b>
+
+اندازه بوم
+
+</b>
+
+<select id="sizeSelect">
+
+<option value="16">
+
+16 × 16
+
+</option>
+
+<option value="32" selected>
+
+32 × 32
+
+</option>
+
+<option value="64">
+
+64 × 64
+
+</option>
+
+</select>
+
+<button id="newCanvas">
+
+ایجاد بوم
+
+</button>
+
+</div>
+
+<div class="section">
+
+<b>
+
+ابزارها
+
+</b>
+
+<button id="brushBtn">
+
+🖌 قلم
+
+</button>
+
+<button id="eraserBtn">
+
+🩹 پاک‌کن
+
+</button>
+
+<button id="fillBtn">
+
+🪣 سطل رنگ
+
+</button>
+
+<button id="pickerBtn">
+
+💉 قطره‌چکان
+
+</button>
+
+</div>
+
+<div class="section">
+
+<b>
+
+رنگ‌ها
+
+</b>
+
+<div
+class="palette"
+id="palette">
+
+</div>
+
+</div>
+
+<div class="section">
+
+<b>
+
+زوم
+
+</b>
+
+<input
+type="range"
+min="50"
+max="400"
+value="100"
+id="zoomSlider">
+
+</div>
+
+<div class="section">
+
+<button id="undoBtn">
+
+↩ Undo
+
+</button>
+
+<button id="redoBtn">
+
+↪ Redo
+
+</button>
+
+<button id="clearBtn">
+
+🗑 پاک کردن
+
+</button>
+
+<button id="downloadBtn">
+
+📥 دانلود PNG
+
+</button>
+
+<a href="https://codeportal-git.github.io/link-manager/" target="_blank">
+
+<button class="codeportal">
+
+سایت های بیشتر در: 🚀 CodePortal
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<div>
+
+Pixel Art Studio
+
+</div>
+
+<div id="currentTool">
+
+🖌 قلم
+
+</div>
+
+</div>
+
+<div class="canvasContainer">
+
+<div id="canvas">
+
+</div>
+
+</div>
+
+<div class="info">
+
+<div>
+
+بوم:
+
+<span id="canvasSize">
+
+32×32
+
+</span>
+
+</div>
+
+<div>
+
+رنگ:
+
+<span id="currentColorText">
+
+#000000
+
+</span>
+
+</div>
+
+<div>
+
+مختصات:
+
+<span id="coord">
+
+0,0
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const colors=[
+
+"#000000",
+"#ffffff",
+"#ef4444",
+"#f97316",
+"#eab308",
+
+"#22c55e",
+"#06b6d4",
+"#3b82f6",
+"#8b5cf6",
+"#ec4899",
+
+"#6b7280",
+"#92400e",
+"#65a30d",
+"#0f766e",
+"#1d4ed8",
+
+"#7c3aed",
+"#be123c",
+"#facc15",
+"#4b5563",
+"#111827"
+
+];
+
+let gridSize=32;
+
+let pixelSize=20;
+
+let selectedColor="#000000";
+
+let tool="brush";
+
+let canvas=[];
+
+let mouseDown=false;
+
+let undoStack=[];
+
+let redoStack=[];
+
+const canvasDiv=
+document.getElementById("canvas");
+
+const palette=
+document.getElementById("palette");
+
+colors.forEach(c=>{
+
+let d=
+document.createElement("div");
+
+d.className="color";
+
+d.style.background=c;
+
+if(c==selectedColor)
+d.classList.add("active");
+
+d.onclick=()=>{
+
+selectedColor=c;
+
+document
+.querySelectorAll(".color")
+.forEach(x=>
+x.classList.remove("active"));
+
+d.classList.add("active");
+
+document
+.getElementById(
+"currentColorText"
+).textContent=c;
+
+};
+
+palette.appendChild(d);
+
+});
+
+document.body.onmousedown=()=>mouseDown=true;
+
+document.body.onmouseup=()=>mouseDown=false;
+
+/* ===== ساخت بوم ===== */
+
+function buildCanvas(){
+
+canvas=[];
+
+canvasDiv.innerHTML="";
+
+canvasDiv.style.gridTemplateColumns=
+`repeat(${gridSize},${pixelSize}px)`;
+
+canvasDiv.style.gridTemplateRows=
+`repeat(${gridSize},${pixelSize}px)`;
+
+for(let y=0;y<gridSize;y++){
+
+canvas[y]=[];
+
+for(let x=0;x<gridSize;x++){
+
+canvas[y][x]="#ffffff";
+
+let p=document.createElement("div");
+
+p.className="pixel";
+
+p.style.width=pixelSize+"px";
+p.style.height=pixelSize+"px";
+
+p.dataset.x=x;
+p.dataset.y=y;
+
+p.onmousedown=()=>paintPixel(p);
+
+p.onmouseover=()=>{
+
+document.getElementById("coord").textContent=
+`${x},${y}`;
+
+if(mouseDown)
+paintPixel(p);
+
+};
+
+canvasDiv.appendChild(p);
+
+}
+
+}
+
+document.getElementById("canvasSize").textContent=
+`${gridSize}×${gridSize}`;
+
+}
+
+/* ===== رنگ کردن ===== */
+
+function paintPixel(pixel){
+
+const x=Number(pixel.dataset.x);
+const y=Number(pixel.dataset.y);
+
+saveUndo();
+
+if(tool==="brush"){
+
+pixel.style.background=selectedColor;
+canvas[y][x]=selectedColor;
+
+}
+
+else if(tool==="eraser"){
+
+pixel.style.background="#ffffff";
+canvas[y][x]="#ffffff";
+
+}
+
+else if(tool==="picker"){
+
+selectedColor=canvas[y][x];
+
+document.getElementById(
+"currentColorText"
+).textContent=selectedColor;
+
+document
+.querySelectorAll(".color")
+.forEach(c=>{
+
+c.classList.remove("active");
+
+if(rgbToHex(c.style.backgroundColor)
+.toLowerCase()==selectedColor.toLowerCase()){
+
+c.classList.add("active");
+
+}
+
+});
+
+}
+
+else if(tool==="fill"){
+
+floodFill(x,y,
+canvas[y][x],
+selectedColor);
+
+}
+
+}
+
+/* ===== سطل رنگ ===== */
+
+function floodFill(x,y,target,newColor){
+
+if(target===newColor)
+return;
+
+let stack=[[x,y]];
+
+while(stack.length){
+
+let item=stack.pop();
+
+let px=item[0];
+let py=item[1];
+
+if(px<0||py<0||
+px>=gridSize||
+py>=gridSize)
+continue;
+
+if(canvas[py][px]!==target)
+continue;
+
+canvas[py][px]=newColor;
+
+let index=
+py*gridSize+px;
+
+canvasDiv.children[index]
+.style.background=newColor;
+
+stack.push([px+1,py]);
+stack.push([px-1,py]);
+stack.push([px,py+1]);
+stack.push([px,py-1]);
+
+}
+
+}
+
+/* ===== Undo ===== */
+
+function saveUndo(){
+
+undoStack.push(
+JSON.stringify(canvas)
+);
+
+if(undoStack.length>30)
+undoStack.shift();
+
+redoStack=[];
+
+}
+
+function loadCanvas(data){
+
+canvas=JSON.parse(data);
+
+for(let y=0;y<gridSize;y++){
+
+for(let x=0;x<gridSize;x++){
+
+let i=y*gridSize+x;
+
+canvasDiv.children[i]
+.style.background=
+canvas[y][x];
+
+}
+
+}
+
+}
+
+document.getElementById("undoBtn").onclick=()=>{
+
+if(!undoStack.length)
+return;
+
+redoStack.push(
+JSON.stringify(canvas)
+);
+
+loadCanvas(
+undoStack.pop()
+);
+
+};
+
+document.getElementById("redoBtn").onclick=()=>{
+
+if(!redoStack.length)
+return;
+
+undoStack.push(
+JSON.stringify(canvas)
+);
+
+loadCanvas(
+redoStack.pop()
+);
+
+};
+
+/* ===== ابزارها ===== */
+
+document.getElementById("brushBtn").onclick=()=>{
+
+tool="brush";
+
+currentTool.textContent="🖌 قلم";
+
+};
+
+document.getElementById("eraserBtn").onclick=()=>{
+
+tool="eraser";
+
+currentTool.textContent="🩹 پاک‌کن";
+
+};
+
+document.getElementById("fillBtn").onclick=()=>{
+
+tool="fill";
+
+currentTool.textContent="🪣 سطل رنگ";
+
+};
+
+document.getElementById("pickerBtn").onclick=()=>{
+
+tool="picker";
+
+currentTool.textContent="💉 قطره‌چکان";
+
+};
+
+/* ===== تغییر اندازه ===== */
+
+document.getElementById("newCanvas").onclick=()=>{
+
+gridSize=
+Number(
+document.getElementById(
+"sizeSelect"
+).value);
+
+pixelSize=
+gridSize==16?30:
+gridSize==32?20:
+10;
+
+undoStack=[];
+redoStack=[];
+
+buildCanvas();
+
+};
+
+/* ===== زوم ===== */
+
+document.getElementById("zoomSlider").oninput=function(){
+
+canvasDiv.style.transform=
+`scale(${this.value/100})`;
+
+};
+
+/* ===== پاک کردن ===== */
+
+document.getElementById("clearBtn").onclick=()=>{
+
+if(!confirm("بوم پاک شود؟"))
+return;
+
+buildCanvas();
+
+};
+
+/* ===== RGB → HEX ===== */
+
+function rgbToHex(rgb){
+
+let m=rgb.match(/\d+/g);
+
+if(!m)
+return "#ffffff";
+
+return "#"+
+(+m[0]).toString(16).padStart(2,"0")+
+(+m[1]).toString(16).padStart(2,"0")+
+(+m[2]).toString(16).padStart(2,"0");
+
+}
+
+/* ===== شروع ===== */
+
+buildCanvas();
+
+/* ===== دانلود PNG ===== */
+
+document.getElementById("downloadBtn").onclick=function(){
+
+let exportCanvas=document.createElement("canvas");
+
+exportCanvas.width=gridSize;
+exportCanvas.height=gridSize;
+
+let ctx=exportCanvas.getContext("2d");
+
+for(let y=0;y<gridSize;y++){
+
+for(let x=0;x<gridSize;x++){
+
+ctx.fillStyle=canvas[y][x];
+
+ctx.fillRect(x,y,1,1);
+
+}
+
+}
+
+let big=document.createElement("canvas");
+
+big.width=gridSize*20;
+big.height=gridSize*20;
+
+let bctx=big.getContext("2d");
+
+bctx.imageSmoothingEnabled=false;
+
+bctx.drawImage(
+exportCanvas,
+0,
+0,
+big.width,
+big.height
+);
+
+let a=document.createElement("a");
+
+a.download="pixel-art.png";
+
+a.href=big.toDataURL();
+
+a.click();
+
+};
+
+/* ===== ذخیره خودکار ===== */
+
+function saveProject(){
+
+localStorage.setItem(
+"pixelGridSize",
+gridSize
+);
+
+localStorage.setItem(
+"pixelCanvas",
+JSON.stringify(canvas)
+);
+
+}
+
+function loadProject(){
+
+let size=
+Number(
+localStorage.getItem(
+"pixelGridSize"
+)
+);
+
+let data=
+localStorage.getItem(
+"pixelCanvas"
+);
+
+if(size && data){
+
+gridSize=size;
+
+document.getElementById(
+"sizeSelect"
+).value=size;
+
+pixelSize=
+size==16?30:
+size==32?20:
+10;
+
+buildCanvas();
+
+canvas=
+JSON.parse(data);
+
+for(let y=0;y<gridSize;y++){
+
+for(let x=0;x<gridSize;x++){
+
+let i=y*gridSize+x;
+
+canvasDiv.children[i]
+.style.background=
+canvas[y][x];
+
+}
+
+}
+
+}
+
+}
+
+setInterval(saveProject,2000);
+
+/* ===== شمارش پیکسل ===== */
+
+function updateStats(){
+
+let painted=0;
+
+for(let y=0;y<gridSize;y++){
+
+for(let x=0;x<gridSize;x++){
+
+if(canvas[y][x]!="#ffffff")
+painted++;
+
+}
+
+}
+
+document.title=
+`Pixel Art (${painted})`;
+
+}
+
+setInterval(updateStats,500);
+
+/* ===== میانبرهای کیبورد ===== */
+
+document.addEventListener(
+"keydown",
+e=>{
+
+if(e.ctrlKey && e.key=="z"){
+
+e.preventDefault();
+
+document.getElementById(
+"undoBtn"
+).click();
+
+}
+
+if(e.ctrlKey && e.key=="y"){
+
+e.preventDefault();
+
+document.getElementById(
+"redoBtn"
+).click();
+
+}
+
+if(e.key=="b"){
+
+tool="brush";
+
+currentTool.textContent="🖌 قلم";
+
+}
+
+if(e.key=="e"){
+
+tool="eraser";
+
+currentTool.textContent="🩹 پاک‌کن";
+
+}
+
+});
+
+/* ===== بارگذاری پروژه ===== */
+
+loadProject();
+
+console.log(
+"Pixel Art Studio Ready ✔"
+);
+
+</script>
+
+</body>
+
+</html>
